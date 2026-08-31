@@ -2,22 +2,25 @@ const SUPABASE_URL = "https://wjuyociiiwhcqlumzktt.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_k3zT_oxIuk3QmNVdHx8Tww_tkYM2Fny";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
-// Navigation & View Controller
-function switchView(viewId) {
-    document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
-    document.getElementById(viewId).classList.remove('hidden');
+// Simple View Controller
+function switchView(sectionId) {
+    document.querySelectorAll('.view').forEach(sec => sec.style.display = 'none');
+    document.getElementById(sectionId).style.display = 'block';
 }
 
-// Event Listeners for Navigation
-document.getElementById('go-to-register').addEventListener('click', (e) => {
+// Handle Registration
+document.getElementById('register-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    switchView('register-view');
-});
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
 
-document.getElementById('go-to-login').addEventListener('click', (e) => {
-    e.preventDefault();
-    switchView('login-view');
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+        alert('Error: ' + error.message);
+    } else {
+        alert('Registration successful! Check your email if verification is required, or try logging in.');
+        switchView('login-section');
+    }
 });
 
 // Handle Login
@@ -27,50 +30,15 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const password = document.getElementById('login-password').value;
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
     if (error) {
-        alert("Login failed: " + error.message);
+        alert('Error: ' + error.message);
     } else {
-        switchView('dashboard-view');
-        loadDashboardStats();
+        switchView('dashboard-section');
     }
 });
 
-// Handle Admin Registration
-document.getElementById('register-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('reg-email').value;
-    const password = document.getElementById('reg-password').value;
-    const name = document.getElementById('reg-name').value;
-    const school = document.getElementById('reg-school').value;
-
-    const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { full_name: name, school_name: school } }
-    });
-
-    if (error) {
-        alert("Error creating account: " + error.message);
-    } else {
-        alert("Account created successfully! Please sign in.");
-        switchView('login-view');
-    }
-});
-
-// Logout
+// Handle Logout
 document.getElementById('logout-btn').addEventListener('click', async () => {
     await supabase.auth.signOut();
-    switchView('login-view');
+    switchView('login-section');
 });
-
-// Fetch Data from Supabase
-async function loadDashboardStats() {
-    const { count, error } = await supabase
-        .from('students')
-        .select('*', { count: 'exact', head: true });
-
-    if (!error && count !== null) {
-        document.getElementById('total-count').innerText = count;
-    }
-}
