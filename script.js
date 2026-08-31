@@ -1,6 +1,7 @@
 // Initialize Supabase Client
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "Y
+    https://wjuyociiiwhcqlumzktt.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_k3zT_oxIuk3QmNVdHx8Tww_tkYM2Fny";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Navigation & View Controller
