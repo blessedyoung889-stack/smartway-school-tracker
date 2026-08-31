@@ -4,168 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Way - Digi Register</title>
-    <!-- Make sure style.css is in the exact same folder as index.html -->
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-    
 <body>
 
-    <!-- ==========================================================================
-         HERO / LANDING SECTION
-         ========================================================================== -->
-    <section id="landing-section">
-        <div class="top-home-header">
-            <h1>Home</h1>
-        </div>
+    <div class="app-container">
+        
+        <!-- Header / Logo -->
+        <header class="app-header">
+            <h1 class="logo">Smart Way</h1>
+            <p class="subtitle">Digi Register System</p>
+        </header>
 
-        <div class="hero-main-title">
-            <span class="smart-light">SMART</span>
-            <span class="way-bold">WAY</span>
-        </div>
-
-        <p class="hero-slogan">Digital Solutions for a Smarter Africa</p>
-
-        <h2 class="digi-subtitle">Digi Register</h2>
-        <p class="digi-paragraph">
-            Smart Way is a Zimbabwean tech-based company bringing practical digital and smart
-            solutions to schools, businesses, and communities — helping Zimbabwe and Africa move
-            confidently into the digital era.
-        </p>
-
-        <div class="about-white-block">
-            <h2>About Smart Way</h2>
-            <p>
-                Founded by Blessing Chipunza and Tehila Letalo, Smart Way builds accessible
-                technology that solves real, local problems — starting with SchoolTrack, our
-                QR-code based school attendance system.
-            </p>
-        </div>
-
-        <!-- ==========================================================================
-             LOGIN FORM — SPLIT SCREEN
-             ========================================================================== -->
-        <div class="login-split-card">
-            <div class="login-left-panel">
-                <div class="dec-circle-lg"></div>
-                <div class="dec-circle-white"></div>
-                <div class="dec-dots-grid"></div>
-                <div class="dec-orbit-line"></div>
-                <div class="dec-blue-dot"></div>
-
-                <h2>Hi!</h2>
-                <p class="slogan">Smart Way Digi Register</p>
-                <p class="main-msg">Manage attendance the smart, digital way.</p>
-            </div>
-
-            <div class="login-right-panel">
-                <h3>Welcome Back!</h3>
-                <form>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
-
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password">
-
-                    <button type="submit">Login</button>
+        <!-- VIEW 1: LOGIN PAGE -->
+        <section id="login-view" class="view">
+            <div class="card">
+                <h2>Welcome Back</h2>
+                <p class="card-subtitle">Sign in to manage attendance</p>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" placeholder="admin@school.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
                 </form>
-                <p class="login-now-link">Don't have an account? <a href="#signup">Sign up now</a></p>
-            </div>
-        </div>
-
-        <!-- ==========================================================================
-             ADMIN ACCOUNT CREATION SECTION
-             ========================================================================== -->
-        <div class="admin-create-wrapper">
-            <div class="admin-nav-bar">
-                <span class="cloud-icon"></span>
-                <span>Admin Registration</span>
-            </div>
-
-            <div class="admin-split-layout">
-                <div class="mascot-card">
-                    <div class="mascot-illustration">AI</div>
-                    <p>Register a new admin account to manage your school's Digi Register.</p>
-                </div>
-
-                <div class="admin-form-panel">
-                    <h3>Create Admin Account</h3>
-                    <p>Fill in the details below to get started.</p>
-
-                    <form class="fields-grid-14">
-                        <input type="text" placeholder="Full Name">
-                        <input type="text" placeholder="School Name">
-                        <input type="email" placeholder="Email Address">
-                        <input type="tel" placeholder="Phone Number">
-                        <input type="text" placeholder="Position / Role">
-                        <input type="text" placeholder="Employee ID">
-                        <input type="password" placeholder="Password">
-                        <input type="password" placeholder="Confirm Password">
-                        <input type="text" placeholder="Physical Address">
-                        <input type="text" placeholder="City">
-                        <input type="text" placeholder="Province">
-                        <input type="text" placeholder="Country">
-                        <input type="text" placeholder="Emergency Contact Name">
-                        <input type="tel" placeholder="Emergency Contact Number">
-                        <button type="submit" class="confirm-pill-btn">Create Account</button>
-                    </form>
+                <div class="card-footer">
+                    <p>Need an account? <a href="#" id="go-to-register">Register School</a></p>
                 </div>
             </div>
+        </section>
 
-            <div class="peeking-mascot">Hi! 👋</div>
-        </div>
-
-        <!-- ==========================================================================
-             OLIVE-GREEN METRIC DASHBOARD (ADMIN PORTAL)
-             ========================================================================== -->
-        <div class="olive-portal-block">
-            <div class="large-admin-metric-card">
-                <h2>Admin Dashboard</h2>
-                <p class="greeting-text">Good Morning! Here's today's attendance overview.</p>
-            </div>
-
-            <div class="sliding-metrics-wrapper">
-                <div class="olive-metric-card">
-                    <h3>Total Students</h3>
-                    <p>1,240</p>
+        <!-- VIEW 2: ADMIN REGISTRATION -->
+        <section id="register-view" class="view hidden">
+            <div class="card">
+                <h2>Register Admin</h2>
+                <p class="card-subtitle">Create a school management account</p>
+                <form id="register-form">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="reg-name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>School Name</label>
+                        <input type="text" id="reg-school" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="reg-email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="reg-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+                <div class="card-footer">
+                    <p>Already registered? <a href="#" id="go-to-login">Sign In</a></p>
                 </div>
-                <div class="olive-metric-card">
-                    <h3>Present Today</h3>
-                    <p>1,102</p>
+            </div>
+        </section>
+
+        <!-- VIEW 3: MAIN DASHBOARD (Protected) -->
+        <section id="dashboard-view" class="view hidden">
+            <div class="card">
+                <div class="dashboard-header">
+                    <h2>Admin Dashboard</h2>
+                    <button id="logout-btn" class="btn-sm btn-outline">Logout</button>
                 </div>
-                <div class="olive-metric-card">
-                    <h3>Absent Today</h3>
-                    <p>138</p>
+                <p class="card-subtitle">Live Attendance Summary</p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <p class="stat-label">Total Students</p>
+                        <p class="stat-number" id="total-count">0</p>
+                    </div>
+                    <div class="stat-box">
+                        <p class="stat-label">Present Today</p>
+                        <p class="stat-number" id="present-count">0</p>
+                    </div>
                 </div>
-                <div class="olive-metric-card">
-                    <h3>Attendance Rate</h3>
-                    <p>89%</p>
+
+                <div class="action-buttons">
+                    <button id="scan-qr-btn" class="btn btn-success">Scan QR Code</button>
+                    <button id="manual-entry-btn" class="btn btn-secondary">Manual Entry</button>
                 </div>
             </div>
+        </section>
 
-            <div class="white-smart-tile">
-                <h3>Recent Activity</h3>
-                <p>Live attendance feed and reports will appear here.</p>
-            </div>
-        </div>
+    </div>
 
-        <!-- ==========================================================================
-             TEACHER & GATE PORTALS
-             ========================================================================== -->
-        <div class="teacher-header-tile">
-            <div>
-                <h2>Teacher Portal</h2>
-                <p class="greeting-text">Track your class attendance in real time.</p>
-            </div>
-            <div class="analog-clock-large"></div>
-        </div>
-
-        <div class="gate-action-cards">
-            <div class="gate-card-auto">Automatic Scan</div>
-            <div class="gate-card-manual">Manual Scan</div>
-        </div>
-
-    </section>
-
+    <script src="script.js"></script>
 </body>
 </html>
